@@ -5,12 +5,14 @@
 #include "iGlim_Report.h"
 #include "afxdialogex.h"
 #include "DlgImage.h"
+#include <iostream>
 
+using namespace std;
 #define COLOR_RED RGB(0xff, 0, 0)
 #define COLOR_GREEN RGB(0, 0xff, 0)
 #define COLOR_BLUE RGB(0, 0, 0xff)
 #define COLOR_YELLOW RGB(0xff, 0xff, 0)
-
+#define PENSIZE 50
 // CDlgImage 대화 상자
 
 IMPLEMENT_DYNAMIC(CDlgImage, CDialogEx)
@@ -97,7 +99,6 @@ void CDlgImage::OnPaint()
 
 }
 
-
 void CDlgImage::drawData(CDC* pDC) {
 
 	CRect rect;
@@ -105,10 +106,22 @@ void CDlgImage::drawData(CDC* pDC) {
 	pen.CreatePen(PS_SOLID, 5, COLOR_YELLOW);
 	CPen* pOldPen = pDC->SelectObject(&pen);
 	//pDC->Ellipse(rect);
+	CBrush* pNewBrush = new CBrush(RGB(0, 0, 0));
 	for (int i = 0; i < m_nDataCount; i++) {
 		rect.SetRect(m_ptData[i], m_ptData[i]);
-		rect.InflateRect(50, 50);
+		rect.InflateRect(PENSIZE, PENSIZE);
+		cout << PENSIZE << endl;
 		pDC->Ellipse(rect);
+		//pDC->FrameRect(rect, pNewBrush);
+
+		pDC->MoveTo(m_ptData->x - PENSIZE, m_ptData->y);
+		pDC->LineTo(m_ptData->x + PENSIZE, m_ptData->y);
+		pDC->MoveTo(m_ptData->x , m_ptData->y- PENSIZE);
+		pDC->LineTo(m_ptData->x, m_ptData->y + PENSIZE);
+
+		pDC->SetPixelV(m_ptData->x, m_ptData->y, RGB(0, 0, 0));
+
 	}
+
 	pDC->SelectObject(pOldPen);
 }

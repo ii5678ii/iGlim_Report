@@ -16,6 +16,8 @@ public:
 
 	CDlgImage* m_pDlgImage;
 	CDlgImage* m_pDlgImageResult;
+private:
+	CImage m_image;
 // 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_IGLIM_REPORT_DIALOG };
@@ -36,6 +38,8 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
+
+
 	afx_msg void OnBnClickedButton1();
 //	afx_msg void OnDestroy();
 	afx_msg void OnDestroy();
@@ -45,4 +49,5 @@ public:
 	afx_msg void OnBnClickedButton4();
 	afx_msg void OnBnClickedButton5();
 	afx_msg void OnBnClickedButton6();
+	void showdisplay();
 };
